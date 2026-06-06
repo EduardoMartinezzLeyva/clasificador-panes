@@ -155,6 +155,9 @@ HTML = r"""<!DOCTYPE html>
       gap: 12px;
       padding: 0 16px 16px;
     }
+    /* input file oculto, activado por label */
+    #file-input { display: none; }
+
     .btn {
       flex: 1;
       padding: 12px 8px;
@@ -163,18 +166,18 @@ HTML = r"""<!DOCTYPE html>
       font-size: 1rem;
       font-weight: 700;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      -webkit-user-select: none;
     }
     .btn-cargar    { background: #4CAF50; color: #fff; }
     .btn-cargar:active  { background: #388e3c; }
     .btn-clasificar { background: #2196F3; color: #fff; }
     .btn-clasificar:active { background: #1565c0; }
-    .btn:disabled { opacity: .45; cursor: default; }
-    /* input file invisible encima del botón cargar */
-    .btn-cargar input[type=file] {
-      position: absolute; inset: 0; opacity: 0; cursor: pointer;
-    }
+    .btn:disabled { opacity: .45; cursor: default; pointer-events: none; }
 
     /* ── Spinner ── */
     .spinner {
@@ -276,12 +279,14 @@ HTML = r"""<!DOCTYPE html>
       <img id="preview" src="" alt="imagen cargada"/>
     </div>
 
+    <!-- input file oculto -->
+    <input type="file" id="file-input" accept="image/*"/>
+
     <!-- botones: Cargar Imagen (verde) | Clasificar (azul) -->
     <div class="btn-row">
-      <button class="btn btn-cargar">
+      <label for="file-input" class="btn btn-cargar">
         Cargar Imagen
-        <input type="file" id="file-input" accept="image/*" capture="environment"/>
-      </button>
+      </label>
       <button class="btn btn-clasificar" id="btn-clasificar" disabled>
         Clasificar
       </button>
